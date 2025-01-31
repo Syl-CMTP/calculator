@@ -22,45 +22,60 @@ public class SimpleCalculator {
             operator = input.next().charAt(0);
         }
 
-        // Get number one for the operation
-        System.out.print("Choose a number from -1000 to 1000: ");
-        double num1 = input.nextDouble();
+        System.out.print("How many numbers do you want to calculate with?: ");
+        int numAmount = input.nextInt();
+        // Flush the line
+        input.nextLine();
 
-        // Check if the number one is within the range
-        while (num1 > 1000 || num1 < -1000) {
-            System.out.println("Invalid integer chosen.");
-            System.out.print("Choose a number from -1000 to 1000: ");
-            num1 = input.nextDouble();
-        }
+        double[] listOfNums = new double[numAmount];
 
-        // Get number two for the operation
-        System.out.print("Choose a second number from -1000 to 1000: ");
-        double num2 = input.nextDouble();
+        double num1 = 0.0;
 
-        // Check if the number two is within the range
-        while (num2 > 1000 || num2 < -1000) {
-            System.out.println("Invalid integer chosen.");
-            System.out.print("Choose a number from -1000 to 1000: ");
-            num2 = input.nextDouble();
+        for (int i = 0; i < listOfNums.length; i++) {
+            do {
+                System.out.print("Choose a number from -1000 to 1000: ");
+                num1 = input.nextDouble();
+
+                if (num1 > 1000 || num1 < -1000) {
+                    System.out.println("Invalid integer chosen.");
+                }
+
+            } while (num1 > 1000 || num1 < -1000);
+
+            listOfNums[i] = num1; // STore the valid input
         }
 
         // Close the scanner
         input.close();
 
         // Find the answer
+        double answer = 0.0;
         if (operator == '+') {
-            System.out.println(num1 + num2);
-        } else if (operator == '-') {
-            System.out.println(num1 - num2);
-        } else if (operator == 'x') {
-            System.out.println(num1 * num2);
-        } else {
-            if (num2 == 0) {
-                System.out.println("Division by zero is undefined.");
-            } else {
-                System.out.println(num1 / num2);
+            for (int x = 0; x < listOfNums.length; x++) {
+                answer += listOfNums[x];
             }
-            
+            System.out.println(answer);
+        } else if (operator == '-') {
+            // Makes 
+            for (int x = 1; x < listOfNums.length; x++) {
+                answer -= listOfNums[x];
+            }
+            System.out.println(answer);
+        } else if (operator == 'x') {
+            for (int x = 0; x < listOfNums.length; x++) {
+                answer *= listOfNums[x];
+            }
+            System.out.println(answer);
+        } else {
+            for (int x = 0; x < listOfNums.length; x++) {
+                if (listOfNums[x] == 0) {
+                    System.out.println("Division by zero is undefined.");
+                    break;
+                } else {
+                    answer /= listOfNums[x];
+                }
+                System.out.println(answer);
+            }
         }
     }
     
